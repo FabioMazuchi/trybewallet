@@ -1,5 +1,5 @@
-import userReducer from './user';
-import walletReducer from './wallet';
+import user from './user';
+import wallet from './wallet';
 
 const { combineReducers } = require('redux');
 
@@ -7,8 +7,8 @@ const { combineReducers } = require('redux');
 // ATENÇÃO: você obrigatoriamente tem que utilizar as chaves 'user' e 'wallet' no seu estado global
 
 const rootReducer = combineReducers({
-  userReducer,
-  walletReducer,
+  user,
+  wallet,
 });
 
 export default rootReducer;

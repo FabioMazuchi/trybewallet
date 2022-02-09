@@ -1,4 +1,6 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { logar } from '../actions';
 
 const MAX_VALUE = 6;
 
@@ -11,6 +13,7 @@ class Login extends React.Component {
       visible: true,
     };
     this.handleChange = this.handleChange.bind(this);
+    this.logar = this.logar.bind(this);
   }
 
   handleChange({ target }) {
@@ -29,7 +32,17 @@ class Login extends React.Component {
     const res = valid.test(email);
     if (res && senha.length >= MAX_VALUE) {
       this.setState({ visible: false });
+    } else {
+      this.setState({ visible: true });
     }
+  }
+
+  logar() {
+    const { email } = this.state;
+    const { logar, history } = this.props;
+    logar(email);
+    history.push('/carteira');
+    this.setState({ visible: true });
   }
 
   render() {
@@ -50,10 +63,14 @@ class Login extends React.Component {
           name="senha"
           placeholder="Senha..."
         />
-        <button disabled={ visible } type="reset">Entrar</button>
+        <button onClick={ this.logar } disabled={ visible } type="reset">Entrar</button>
       </form>
     );
   }
 }
 
-export default Login;
+const mapDispatchToProps = (dispacth) => ({
+  logar: (email) => dispacth(logar(email)),
+});
+
+export default connect(null, mapDispatchToProps)(Login);
