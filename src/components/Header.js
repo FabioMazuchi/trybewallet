@@ -1,9 +1,10 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 
 class Header extends Component {
-  constructor() {
-    super();
+  componentDidMount() {
+    this.soma();
   }
 
   soma() {
@@ -12,16 +13,8 @@ class Header extends Component {
     despesas.forEach((despesa) => {
       const moedaSelect = despesa.moeda;
       const valor = Number(despesa.valor);
-      if (valor === 0) {
-        total = total;
-      } else {
-        console.log(typeof valor);
-        const ask = despesa.exchangeRates[moedaSelect].ask;
-        total += valor * ask;
-        console.log('valor:'+valor);
-        console.log(ask);
-        console.log(total);
-      }
+      const askValue = despesa.exchangeRates[moedaSelect].ask;
+      total += valor * askValue;
     });
     return total.toFixed(2);
   }
@@ -41,7 +34,12 @@ class Header extends Component {
 const mapStateToProps = (state) => ({
   email: state.user.email,
   despesas: state.wallet.expenses,
-  isLoading: state.wallet.isLoading,
+  isLoading: state.wallet.isFetching,
 });
+
+Header.propTypes = {
+  email: PropTypes.string.isRequired,
+  despesas: PropTypes.arrayOf.isRequired,
+};
 
 export default connect(mapStateToProps)(Header);
