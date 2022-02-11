@@ -1,26 +1,34 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 class Header extends Component {
-  componentDidMount() {
-    this.soma();
+  constructor() {
+    super();
+    this.state = {
+      isLoading: false,
+      total: 0,
+    };
   }
-
+  
   soma() {
     const { despesas } = this.props;
+    console.log(despesas);
     let total = 0;
     despesas.forEach((despesa) => {
-      const moedaSelect = despesa.moeda;
-      const valor = Number(despesa.valor);
+      const moedaSelect = despesa.currency;
+      const valor = Number(despesa.value);
       const askValue = despesa.exchangeRates[moedaSelect].ask;
       total += valor * askValue;
     });
+    console.log(total);
+    // this.setState({ total });
     return total.toFixed(2);
   }
 
   render() {
-    const { email } = this.props;
+    const { email, isLoading } = this.props;
+    // if (isLoading) return 'Loading';
     return (
       <header>
         <span data-testid="email-field">{email}</span>
@@ -37,9 +45,9 @@ const mapStateToProps = (state) => ({
   isLoading: state.wallet.isFetching,
 });
 
-Header.propTypes = {
-  email: PropTypes.string.isRequired,
-  despesas: PropTypes.arrayOf.isRequired,
-};
+// Header.propTypes = {
+//   email: PropTypes.string.isRequired,
+//   // despesas: PropTypes.arrayOf.isRequired,
+// };
 
 export default connect(mapStateToProps)(Header);

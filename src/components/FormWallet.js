@@ -1,18 +1,18 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
-import { addDespesa, fetchMoedas } from '../actions';
+import React, { Component } from "react";
+import { connect } from "react-redux";
+// import PropTypes from "prop-types";
+import { addDespesa, fetchMoedas } from "../actions";
 
 class FormWallet extends Component {
   constructor() {
     super();
     this.state = {
       id: 0,
-      valor: 0,
-      descricao: '',
-      moeda: 'USD',
-      pagamento: 'Dinheiro',
-      tag: 'Alimentação',
+      value: 0,
+      description: "",
+      currency: "USD",
+      method: "Dinheiro",
+      tag: "Alimentação",
     };
     this.handleChange = this.handleChange.bind(this);
     this.adicionarDespesa = this.adicionarDespesa.bind(this);
@@ -30,8 +30,8 @@ class FormWallet extends Component {
     });
   }
 
-  adicionarDespesa(e) {
-    e.preventDefault();
+  adicionarDespesa() {
+    // e.preventDefault();
     const { addDespesas, despesas, buscaMoedas, exchangeRates } = this.props;
     buscaMoedas();
     this.setState(
@@ -39,91 +39,93 @@ class FormWallet extends Component {
         id: despesas.length,
         exchangeRates,
       },
-      () => addDespesas(this.state),
+      () => {
+        addDespesas(this.state);
+        this.setState({ value: 0 });
+      },
     );
   }
 
   render() {
     const { exchangeRates, isLoading } = this.props;
-    const { valor } = this.state;
-    console.log(valor);
+    const { value, description, currency, method, tag } = this.state;
+    // if (isLoading) return 'loading';
     return (
       <form>
-        {isLoading ? (
-          'Carregando'
-        ) : (
-          <>
-            <label htmlFor="valor">
-              Valor:
-              <input
-                onChange={ this.handleChange }
-                name="valor"
-                data-testid="value-input"
-                type="number"
-                id="valor"
-                value={ valor === 0 ? 0 : valor }
-              />
-            </label>
-            <label htmlFor="descricao">
-              Descrição:
-              <input
-                onChange={ this.handleChange }
-                name="descricao"
-                data-testid="description-input"
-                type="text"
-                id="descricao"
-              />
-            </label>
-            <label htmlFor="moeda">
-              Moeda:
-              <select
-                onChange={ this.handleChange }
-                name="moeda"
-                id="moeda"
-                data-testid="currency-input"
-              >
-                {exchangeRates !== undefined && Object.keys(exchangeRates)
-                  .filter((rate) => rate !== 'USDT')
-                  .map((moeda) => (
-                    <option data-testid={ moeda } key={ moeda }>
-                      {moeda}
-                    </option>
-                  ))}
-              </select>
-            </label>
-            <label htmlFor="pagamento">
-              Método de pagamento:
-              <select
-                onChange={ this.handleChange }
-                name="pagamento"
-                id="pagamento"
-                data-testid="method-input"
-              >
-                <option>Dinheiro</option>
-                <option>Cartão de crédito</option>
-                <option>Cartão de débito</option>
-              </select>
-            </label>
-            <label htmlFor="tag">
-              Tag:
-              <select
-                onChange={ this.handleChange }
-                name="tag"
-                id="tag"
-                data-testid="tag-input"
-              >
-                <option>Alimentação</option>
-                <option>Lazer</option>
-                <option>Trabalho</option>
-                <option>Transporte</option>
-                <option>Saúde</option>
-              </select>
-            </label>
-            <button onClick={ (e) => this.adicionarDespesa(e) } type="submit">
-              Adicionar despesa
-            </button>
-          </>
-        )}
+        <label htmlFor="value">
+          Valor:
+          <input
+            onChange={this.handleChange}
+            name="value"
+            data-testid="value-input"
+            type="number"
+            id="value"
+            value={value}
+          />
+        </label>
+        <label htmlFor="description">
+          Descrição:
+          <input
+            onChange={this.handleChange}
+            name="description"
+            data-testid="description-input"
+            type="text"
+            id="description"
+            value={description}
+          />
+        </label>
+        <label htmlFor="currency">
+          Moeda:
+          <select
+            onChange={this.handleChange}
+            name="currency"
+            id="currency"
+            data-testid="currency-input"
+            value={currency}
+          >
+            {exchangeRates !== undefined &&
+              Object.keys(exchangeRates)
+                .filter((rate) => rate !== "USDT")
+                .map((moeda) => (
+                  <option data-testid={moeda} key={moeda}>
+                    {moeda}
+                  </option>
+                ))}
+          </select>
+        </label>
+        <label htmlFor="method">
+          Método de pagamento:
+          <select
+            onChange={this.handleChange}
+            name="method"
+            id="method"
+            data-testid="method-input"
+            value={method}
+          >
+            <option>Dinheiro</option>
+            <option>Cartão de crédito</option>
+            <option>Cartão de débito</option>
+          </select>
+        </label>
+        <label htmlFor="tag">
+          Tag:
+          <select
+            onChange={this.handleChange}
+            name="tag"
+            id="tag"
+            data-testid="tag-input"
+            value={tag}
+          >
+            <option>Alimentação</option>
+            <option>Lazer</option>
+            <option>Trabalho</option>
+            <option>Transporte</option>
+            <option>Saúde</option>
+          </select>
+        </label>
+        <button onClick={this.adicionarDespesa} type="reset">
+          Adicionar despesa
+        </button>
       </form>
     );
   }
@@ -140,12 +142,12 @@ const mapStateToProps = (state) => ({
   isLoading: state.wallet.isFetching,
 });
 
-FormWallet.propTypes = {
-  buscaMoedas: PropTypes.func.isRequired,
-  addDespesas: PropTypes.func.isRequired,
-  exchangeRates: PropTypes.objectOf.isRequired,
-  isLoading: PropTypes.bool.isRequired,
-  despesas: PropTypes.arrayOf.isRequired,
-};
+// FormWallet.propTypes = {
+//   buscaMoedas: PropTypes.func.isRequired,
+//   addDespesas: PropTypes.func.isRequired,
+//   exchangeRates: PropTypes.objectOf.isRequired,
+//   isLoading: PropTypes.bool.isRequired,
+//   despesas: PropTypes.arrayOf.isRequired,
+// };
 
 export default connect(mapStateToProps, mapDispatchToProps)(FormWallet);

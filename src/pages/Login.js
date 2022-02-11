@@ -1,5 +1,5 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { logar } from '../actions';
 
@@ -41,7 +41,6 @@ class Login extends React.Component {
   logar() {
     const { email } = this.state;
     const { login, history } = this.props;
-    console.log(history);
     login(email);
     history.push('/carteira');
     this.setState({ visible: true });
@@ -77,9 +76,9 @@ const mapDispatchToProps = (dispacth) => ({
   login: (email) => dispacth(logar(email)),
 });
 
-Login.propTypes = {
-  login: PropTypes.func.isRequired,
-  history: PropTypes.objectOf.isRequired,
-};
+// Login.propTypes = {
+//   login: PropTypes.func.isRequired,
+//   history: PropTypes.objectOf.isRequired,
+// };
 
 export default connect(null, mapDispatchToProps)(Login);
