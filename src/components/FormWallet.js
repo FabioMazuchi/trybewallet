@@ -8,10 +8,10 @@ class FormWallet extends Component {
     super();
     this.state = {
       id: 0,
-      value: 0,
+      value: '0',
       description: "",
       currency: "USD",
-      method: "Dinheiro",
+      method: "",
       tag: "Alimentação",
     };
     this.handleChange = this.handleChange.bind(this);
@@ -25,6 +25,7 @@ class FormWallet extends Component {
 
   handleChange({ target }) {
     const { name, value } = target;
+    // console.log(typeof(value));
     this.setState({
       [name]: value,
     });
@@ -58,7 +59,7 @@ class FormWallet extends Component {
             onChange={this.handleChange}
             name="value"
             data-testid="value-input"
-            type="number"
+            type="text"
             id="value"
             value={value}
           />

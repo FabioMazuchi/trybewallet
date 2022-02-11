@@ -13,7 +13,6 @@ class Header extends Component {
   
   soma() {
     const { despesas } = this.props;
-    console.log(despesas);
     let total = 0;
     despesas.forEach((despesa) => {
       const moedaSelect = despesa.currency;
@@ -21,9 +20,8 @@ class Header extends Component {
       const askValue = despesa.exchangeRates[moedaSelect].ask;
       total += valor * askValue;
     });
-    console.log(total);
-    // this.setState({ total });
-    return total.toFixed(2);
+    console.log(typeof(total.toFixed(2).toString()));
+    return total.toFixed(2).toString();
   }
 
   render() {
