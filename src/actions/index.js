@@ -1,5 +1,6 @@
 export const LOGAR = 'LOGAR';
 export const ADD_DESPESA = 'ADD_DESPESA';
+export const REMOVE_DESPESA = 'REMOVE_DESPESA';
 export const REQUEST_MOEDAS = 'REQUEST_MOEDAS';
 export const GET_MOEDAS = 'GET_MOEDAS';
 export const FAILED_REQUEST = 'FAILED_REQUEST';
@@ -10,6 +11,10 @@ export function logar(email) {
 
 export function addDespesa(despesa) {
   return { type: ADD_DESPESA, despesa };
+}
+
+export function removeDespesa(id) {
+  return { type: REMOVE_DESPESA, id };
 }
 
 function requestMoedas() {

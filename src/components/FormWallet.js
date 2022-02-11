@@ -25,7 +25,6 @@ class FormWallet extends Component {
 
   handleChange({ target }) {
     const { name, value } = target;
-    // console.log(typeof(value));
     this.setState({
       [name]: value,
     });

@@ -1,17 +1,17 @@
 import React, { Component } from "react";
+import { removeDespesa } from "../actions";
 import { connect } from "react-redux";
 
 class Table extends Component {
-
   convertNumber(numero) {
     const n = Number(numero).toFixed(2);
     const n1 = n.toString();
-    console.log(typeof(n));
+    console.log(typeof n);
     return n1;
   }
 
   render() {
-    const { despesas, isLoading } = this.props;
+    const { despesas, deleteItem } = this.props;
     // if (isLoading) return "Loading";
     return (
       <table>
@@ -33,13 +33,18 @@ class Table extends Component {
             <td>{despesa.method}</td>
             <td>{this.convertNumber(despesa.value)}</td>
             <td>{despesa.exchangeRates[despesa.currency].name}</td>
-            <td>{Number(despesa.exchangeRates[despesa.currency].ask).toFixed(2)}</td>
+            <td>
+              {Number(despesa.exchangeRates[despesa.currency].ask).toFixed(2)}
+            </td>
             <td>
               {(
                 despesa.exchangeRates[despesa.currency].ask * despesa.value
               ).toFixed(2)}
             </td>
             <td>Real</td>
+            <td>
+              <button onClick={ () => deleteItem(despesa.id) } type="button" data-testid="delete-btn">Deletar</button>
+            </td>
           </tr>
         ))}
       </table>
@@ -52,8 +57,12 @@ const mapStateToProps = (state) => ({
   isLoading: state.wallet.isFetching,
 });
 
+const mapDispatchToProps = (dispatch) => ({
+  deleteItem: (id) => dispatch(removeDespesa(id)),
+});
+
 // Table.propTypes = {
 //   despesas: PropTypes.arrayOf.isRequired,
 // };
 
-export default connect(mapStateToProps)(Table);
+export default connect(mapStateToProps, mapDispatchToProps)(Table);

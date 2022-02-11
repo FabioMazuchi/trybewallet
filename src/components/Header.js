@@ -10,7 +10,7 @@ class Header extends Component {
       total: 0,
     };
   }
-  
+
   soma() {
     const { despesas } = this.props;
     let total = 0;
