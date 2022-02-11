@@ -1,18 +1,17 @@
-import React, { Component } from "react";
-import { removeDespesa } from "../actions";
-import { connect } from "react-redux";
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { removeDespesa } from '../actions';
 
 class Table extends Component {
   convertNumber(numero) {
     const n = Number(numero).toFixed(2);
     const n1 = n.toString();
-    console.log(typeof n);
     return n1;
   }
 
   render() {
     const { despesas, deleteItem } = this.props;
-    // if (isLoading) return "Loading";
     return (
       <table>
         <tr>
@@ -27,7 +26,7 @@ class Table extends Component {
           <th>Editar/Excluir</th>
         </tr>
         {despesas.map((despesa) => (
-          <tr key={despesa.id}>
+          <tr key={ despesa.id }>
             <td>{despesa.description}</td>
             <td>{despesa.tag}</td>
             <td>{despesa.method}</td>
@@ -43,7 +42,13 @@ class Table extends Component {
             </td>
             <td>Real</td>
             <td>
-              <button onClick={ () => deleteItem(despesa.id) } type="button" data-testid="delete-btn">Deletar</button>
+              <button
+                onClick={ () => deleteItem(despesa.id) }
+                type="button"
+                data-testid="delete-btn"
+              >
+                Deletar
+              </button>
             </td>
           </tr>
         ))}
@@ -61,8 +66,9 @@ const mapDispatchToProps = (dispatch) => ({
   deleteItem: (id) => dispatch(removeDespesa(id)),
 });
 
-// Table.propTypes = {
-//   despesas: PropTypes.arrayOf.isRequired,
-// };
+Table.propTypes = {
+  despesas: PropTypes.arrayOf.isRequired,
+  deleteItem: PropTypes.func.isRequired,
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(Table);

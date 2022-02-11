@@ -4,7 +4,7 @@ import {
   GET_MOEDAS,
   FAILED_REQUEST,
   REMOVE_DESPESA,
-} from "../actions";
+} from '../actions';
 
 const INITIAL_STATE = {
   currencies: [],

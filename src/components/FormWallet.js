@@ -1,7 +1,7 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
-// import PropTypes from "prop-types";
-import { addDespesa, fetchMoedas } from "../actions";
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import { addDespesa, fetchMoedas } from '../actions';
 
 class FormWallet extends Component {
   constructor() {
@@ -9,10 +9,10 @@ class FormWallet extends Component {
     this.state = {
       id: 0,
       value: '0',
-      description: "",
-      currency: "USD",
-      method: "",
-      tag: "Alimentação",
+      description: '',
+      currency: 'USD',
+      method: '',
+      tag: 'Alimentação',
     };
     this.handleChange = this.handleChange.bind(this);
     this.adicionarDespesa = this.adicionarDespesa.bind(this);
@@ -31,7 +31,6 @@ class FormWallet extends Component {
   }
 
   adicionarDespesa() {
-    // e.preventDefault();
     const { addDespesas, despesas, buscaMoedas, exchangeRates } = this.props;
     buscaMoedas();
     this.setState(
@@ -47,47 +46,46 @@ class FormWallet extends Component {
   }
 
   render() {
-    const { exchangeRates, isLoading } = this.props;
+    const { exchangeRates } = this.props;
     const { value, description, currency, method, tag } = this.state;
-    // if (isLoading) return 'loading';
     return (
       <form>
         <label htmlFor="value">
           Valor:
           <input
-            onChange={this.handleChange}
+            onChange={ this.handleChange }
             name="value"
             data-testid="value-input"
             type="text"
             id="value"
-            value={value}
+            value={ value }
           />
         </label>
         <label htmlFor="description">
           Descrição:
           <input
-            onChange={this.handleChange}
+            onChange={ this.handleChange }
             name="description"
             data-testid="description-input"
             type="text"
             id="description"
-            value={description}
+            value={ description }
           />
         </label>
         <label htmlFor="currency">
           Moeda:
           <select
-            onChange={this.handleChange}
+            onChange={ this.handleChange }
             name="currency"
             id="currency"
             data-testid="currency-input"
-            value={currency}
+            value={ currency }
           >
-            {exchangeRates !== undefined &&
-              Object.keys(exchangeRates)
-                .filter((rate) => rate !== "USDT")
+            {exchangeRates !== undefined
+              && Object.keys(exchangeRates)
+                .filter((rate) => rate !== 'USDT')
                 .map((moeda) => (
-                  <option data-testid={moeda} key={moeda}>
+                  <option data-testid={ moeda } key={ moeda }>
                     {moeda}
                   </option>
                 ))}
@@ -96,11 +94,11 @@ class FormWallet extends Component {
         <label htmlFor="method">
           Método de pagamento:
           <select
-            onChange={this.handleChange}
+            onChange={ this.handleChange }
             name="method"
             id="method"
             data-testid="method-input"
-            value={method}
+            value={ method }
           >
             <option>Dinheiro</option>
             <option>Cartão de crédito</option>
@@ -110,11 +108,11 @@ class FormWallet extends Component {
         <label htmlFor="tag">
           Tag:
           <select
-            onChange={this.handleChange}
+            onChange={ this.handleChange }
             name="tag"
             id="tag"
             data-testid="tag-input"
-            value={tag}
+            value={ tag }
           >
             <option>Alimentação</option>
             <option>Lazer</option>
@@ -123,7 +121,7 @@ class FormWallet extends Component {
             <option>Saúde</option>
           </select>
         </label>
-        <button onClick={this.adicionarDespesa} type="reset">
+        <button onClick={ this.adicionarDespesa } type="reset">
           Adicionar despesa
         </button>
       </form>
@@ -142,12 +140,11 @@ const mapStateToProps = (state) => ({
   isLoading: state.wallet.isFetching,
 });
 
-// FormWallet.propTypes = {
-//   buscaMoedas: PropTypes.func.isRequired,
-//   addDespesas: PropTypes.func.isRequired,
-//   exchangeRates: PropTypes.objectOf.isRequired,
-//   isLoading: PropTypes.bool.isRequired,
-//   despesas: PropTypes.arrayOf.isRequired,
-// };
+FormWallet.propTypes = {
+  buscaMoedas: PropTypes.func.isRequired,
+  addDespesas: PropTypes.func.isRequired,
+  exchangeRates: PropTypes.objectOf.isRequired,
+  despesas: PropTypes.arrayOf.isRequired,
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(FormWallet);
