@@ -1,6 +1,7 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
+import React, { Component } from "react";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import wallet from '../images/wallet.png';
 
 class Header extends Component {
   soma() {
@@ -12,16 +13,22 @@ class Header extends Component {
       const askValue = despesa.exchangeRates[moedaSelect].ask;
       total += valor * askValue;
     });
-    return total.toFixed(2).toString();
+    return total.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+    // return total.toFixed(2).toString();
   }
 
   render() {
     const { email } = this.props;
     return (
       <header>
-        <span data-testid="email-field">{email}</span>
-        <span data-testid="total-field">{this.soma()}</span>
-        <span data-testid="header-currency-field">BRL</span>
+        <h1><img src={wallet} alt="Wallet" /> MyWallet</h1>
+        <div>
+          <span data-testid="email-field">{email}</span>
+          <p data-testid="total-field">
+            Total: { this.soma() }
+            <span data-testid="header-currency-field"> BRL</span>
+          </p>
+        </div>
       </header>
     );
   }

@@ -1,13 +1,14 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { removeDespesa } from '../actions';
+import React, { Component } from "react";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import { removeDespesa } from "../actions";
+import trash from "../images/trash.png";
 
 class Table extends Component {
   convertNumber(numero) {
-    const n = Number(numero).toFixed(2);
-    const n1 = n.toString();
-    return n1;
+    const n = Number(numero);
+    // const n1 = n.toString();
+    return n.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
   }
 
   render() {
@@ -23,10 +24,10 @@ class Table extends Component {
           <th>Câmbio utilizado</th>
           <th>Valor convertido</th>
           <th>Moeda de conversão</th>
-          <th>Editar/Excluir</th>
+          <th>Excluir</th>
         </tr>
         {despesas.map((despesa) => (
-          <tr key={ despesa.id }>
+          <tr key={despesa.id}>
             <td>{despesa.description}</td>
             <td>{despesa.tag}</td>
             <td>{despesa.method}</td>
@@ -36,9 +37,9 @@ class Table extends Component {
               {Number(despesa.exchangeRates[despesa.currency].ask).toFixed(2)}
             </td>
             <td>
-              {(
+              {this.convertNumber(
                 despesa.exchangeRates[despesa.currency].ask * despesa.value
-              ).toFixed(2)}
+              )}
             </td>
             <td>Real</td>
             <td>
@@ -47,7 +48,7 @@ class Table extends Component {
                 type="button"
                 data-testid="delete-btn"
               >
-                Deletar
+                <img src={ trash } alt="Deletar" />
               </button>
             </td>
           </tr>

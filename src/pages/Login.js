@@ -49,20 +49,20 @@ class Login extends React.Component {
   render() {
     const { visible } = this.state;
     return (
-      <form>
+      <form className="login">
         <input
           onChange={ this.handleChange }
           data-testid="email-input"
           type="text"
           name="email"
-          placeholder="Email..."
+          placeholder="Email"
         />
         <input
           onChange={ this.handleChange }
           data-testid="password-input"
           type="password"
           name="senha"
-          placeholder="Senha..."
+          placeholder="Senha"
         />
         <button onClick={ this.logar } disabled={ visible } type="reset">
           Entrar

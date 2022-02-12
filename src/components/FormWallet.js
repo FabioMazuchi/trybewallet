@@ -3,17 +3,19 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { addDespesa, fetchMoedas } from '../actions';
 
+const INITIAL_STATE = {
+  id: 0,
+  value: '0',
+  description: '',
+  currency: 'USD',
+  method: '',
+  tag: 'Alimentação',
+};
+
 class FormWallet extends Component {
   constructor() {
     super();
-    this.state = {
-      id: 0,
-      value: '0',
-      description: '',
-      currency: 'USD',
-      method: '',
-      tag: 'Alimentação',
-    };
+    this.state = INITIAL_STATE;
     this.handleChange = this.handleChange.bind(this);
     this.adicionarDespesa = this.adicionarDespesa.bind(this);
   }
@@ -40,7 +42,7 @@ class FormWallet extends Component {
       },
       () => {
         addDespesas(this.state);
-        this.setState({ value: 0 });
+        this.setState(INITIAL_STATE);
       },
     );
   }
@@ -49,9 +51,9 @@ class FormWallet extends Component {
     const { exchangeRates } = this.props;
     const { value, description, currency, method, tag } = this.state;
     return (
-      <form>
+      <form className="wallet">
         <label htmlFor="value">
-          Valor:
+          Valor
           <input
             onChange={ this.handleChange }
             name="value"
@@ -61,8 +63,8 @@ class FormWallet extends Component {
             value={ value }
           />
         </label>
-        <label htmlFor="description">
-          Descrição:
+        <label className='descricao' htmlFor="description">
+          Descrição
           <input
             onChange={ this.handleChange }
             name="description"
@@ -73,7 +75,7 @@ class FormWallet extends Component {
           />
         </label>
         <label htmlFor="currency">
-          Moeda:
+          Moeda
           <select
             onChange={ this.handleChange }
             name="currency"
@@ -92,7 +94,7 @@ class FormWallet extends Component {
           </select>
         </label>
         <label htmlFor="method">
-          Método de pagamento:
+          Método De Pagamento
           <select
             onChange={ this.handleChange }
             name="method"
@@ -106,7 +108,7 @@ class FormWallet extends Component {
           </select>
         </label>
         <label htmlFor="tag">
-          Tag:
+          Tag
           <select
             onChange={ this.handleChange }
             name="tag"
@@ -122,7 +124,7 @@ class FormWallet extends Component {
           </select>
         </label>
         <button onClick={ this.adicionarDespesa } type="reset">
-          Adicionar despesa
+          Adicionar Despesa
         </button>
       </form>
     );
