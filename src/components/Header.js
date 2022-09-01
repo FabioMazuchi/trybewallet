@@ -19,6 +19,7 @@ class Header extends Component {
 
   render() {
     const { email } = this.props;
+    // if (isLoading) return 'Loading';
     return (
       <header>
         <h1><img src={wallet} alt="Wallet" /> MyWallet</h1>

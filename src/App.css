@@ -2,15 +2,24 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+  font-family: 'PT Serif', serif;
+}
+
+html, body {
+  height: 100%;
 }
 
 body {
+  display: flex;
+  flex-direction: column;
   background-color: #E6E3E2;
+  justify-content: space-between;
 }
 
 header {
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
   justify-content: space-around;
   padding: 12px 2%;
   background-color: #E2B76B;
@@ -31,7 +40,8 @@ header img {
 header div {
   display: flex;
   justify-content: space-evenly;
-  width: 40%;
+  flex-wrap: wrap;
+  width: 70%;
 }
 
 header div p, span {
@@ -88,7 +98,15 @@ header div span {
   background-color: #d83b30;
 }
 
+.login h2 {
+  text-align: center;
+  margin-bottom: 12px;
+  font-weight: lighter;
+}
+
 .wallet {
+  flex-wrap: wrap;
+  justify-content: center;
   display: flex;
   padding: 15px 2% 20px;
   align-items: flex-end;
@@ -98,9 +116,10 @@ header div span {
 .wallet label {
   display: flex;
   flex-direction: column;
-  flex-basis: 12%;
-  margin-right: 12px;
+  flex-basis: 15%;
+  margin-right: 10px;
   color: #E2B76B;
+  margin-bottom: 12px;
 }
 
 .wallet input, select {
@@ -113,7 +132,7 @@ header div span {
 .wallet button {
   padding: 0;
   height: 35px;
-  width: 12%;
+  width: 95%;
   background-color: #67e267;
   color: #272822;
   font-weight: bold;
@@ -125,26 +144,30 @@ header div span {
   background-color: #4bc04b;
 }
 
-label.descricao {
-  flex-basis: 33%;
-}
-
 table {
-  padding: 12px 2%;
   width: 100%;
   margin: 0 auto;
   font-size: 17px;
   background-color: #E2B76B;
   text-align: center;
+  border-collapse: separate;
 }
 
 table th {
   text-transform: capitalize;
   padding: 0 4px;
+  border: 1px solid;
+  background-color: #272822;
+  color: #E2B76B;
 }
 
 table td {
-  padding: 3px 0;
+  padding: 0 4px;
+  border: 1px solid;
+}
+
+table td:nth-of-type(9) div {
+  display: flex;
 }
 
 table button {
@@ -152,7 +175,102 @@ table button {
 }
 
 table img {
-  width: 30px;
-  height: 25px;
+  width: 25px;
   cursor: pointer;
+}
+
+.editBtn {
+  background-color: rgb(67, 130, 202) !important;
+  color: white !important;
+  cursor: pointer;
+}
+
+.table {
+  overflow-x: auto;
+  margin-bottom: 100px;
+}
+
+footer {
+  position: fixed;
+  bottom: 0;
+  background-color: #867571;
+  width: 100%;
+  padding: 8px 0;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+footer p {
+  text-align: center;
+  font-size: 18px;
+}
+
+footer img {
+  width: 30px;
+  cursor: pointer;
+  margin-right: 10px;
+}
+
+.edit {
+  background-color: #46473e;
+}
+
+@media screen and (max-width: 1060px) {
+  .wallet button {
+    width: 200px  
+  }
+  .wallet label {
+    flex-basis: 30%;
+  } 
+}
+
+@media screen and (max-width: 912px) {
+  header {
+    flex-direction: column;
+  }
+  header h1 {
+    margin-bottom: 10px;
+  }
+}
+
+@media screen and (max-width: 912px) {
+  .login {
+    width: 80%;
+  }
+}
+
+@media screen and (max-width: 650px) {
+  .wallet label {
+    flex-basis: 100%;
+    margin-right: 0;
+  } 
+  th, td {
+    font-size: 15px;
+  }
+  header {
+    flex-direction: column;
+  }
+  header h1 {
+    margin-bottom: 10px;
+  }
+  .login {
+    width: 85%;
+    padding: 20px 0px;
+  }
+}
+
+@media screen and (max-width: 420px) {
+  footer {
+    flex-direction: column;
+  }
+  footer p {
+    margin-bottom: 7px;
+  }
+}
+
+@media screen and (max-width: 420px) {
+  .table {
+    margin-bottom: 130px;
+  }
 }

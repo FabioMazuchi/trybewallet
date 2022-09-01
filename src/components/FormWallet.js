@@ -8,7 +8,7 @@ const INITIAL_STATE = {
   value: '0',
   description: '',
   currency: 'USD',
-  method: '',
+  method: 'Dinheiro',
   tag: 'Alimentação',
 };
 
@@ -52,7 +52,7 @@ class FormWallet extends Component {
     const { value, description, currency, method, tag } = this.state;
     return (
       <form className="wallet">
-        <label htmlFor="value">
+        <label className='valor' htmlFor="value">
           Valor
           <input
             onChange={ this.handleChange }
@@ -93,7 +93,7 @@ class FormWallet extends Component {
                 ))}
           </select>
         </label>
-        <label htmlFor="method">
+        <label className='pagamento' htmlFor="method">
           Método De Pagamento
           <select
             onChange={ this.handleChange }
@@ -123,9 +123,11 @@ class FormWallet extends Component {
             <option>Saúde</option>
           </select>
         </label>
-        <button onClick={ this.adicionarDespesa } type="reset">
-          Adicionar Despesa
-        </button>
+        <label for="">
+          <button onClick={ this.adicionarDespesa } type="reset">
+            Adicionar Despesa
+          </button>
+        </label>
       </form>
     );
   }
@@ -140,6 +142,8 @@ const mapStateToProps = (state) => ({
   despesas: state.wallet.expenses,
   exchangeRates: state.wallet.exchangeRates,
   isLoading: state.wallet.isFetching,
+  editando: state.wallet.isEditing,
+  despesa: state.wallet.expense,
 });
 
 FormWallet.propTypes = {

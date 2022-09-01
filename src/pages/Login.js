@@ -49,7 +49,9 @@ class Login extends React.Component {
   render() {
     const { visible } = this.state;
     return (
+      
       <form className="login">
+        <h2>Faça o Login</h2>
         <input
           onChange={ this.handleChange }
           data-testid="email-input"

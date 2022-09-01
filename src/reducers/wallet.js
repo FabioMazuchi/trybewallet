@@ -4,6 +4,8 @@ import {
   GET_MOEDAS,
   FAILED_REQUEST,
   REMOVE_DESPESA,
+  EDITA_DESPESA_INIT,
+  EDITA_DESPESA_SUCCESS,
 } from '../actions';
 
 const INITIAL_STATE = {
@@ -11,6 +13,8 @@ const INITIAL_STATE = {
   expenses: [],
   exchangeRates: {},
   isFetching: false,
+  expense: {},
+  isEditing: false,
 };
 
 const wallet = (state = INITIAL_STATE, action) => {
@@ -21,6 +25,18 @@ const wallet = (state = INITIAL_STATE, action) => {
     return {
       ...state,
       expenses: state.expenses.filter((expense) => expense.id !== action.id),
+    };
+  case EDITA_DESPESA_INIT:
+    return {
+      ...state,
+      expense: action.despesa,
+      isEditing: true,
+    };
+  case EDITA_DESPESA_SUCCESS:
+    return {
+      ...state,
+      expenses: action.despesaeditada,
+      isEditing: false,
     };
   case REQUEST_MOEDAS:
     return { ...state, isFetching: true };
